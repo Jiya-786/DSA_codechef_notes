@@ -1,68 +1,202 @@
-Rotate the array
+Alternating Array
 
-You are given an integer array 
+Chef has an array of integers. The array has even length and contains an equal number of positive and negative integers. Chef wants to rearrange the array so that:
+
+
+
+Every consecutive pair of numbers has opposite signs.
+
+The relative order of positive numbers among themselves and negative numbers among themselves is preserved.
+
+The array starts with a positive number.
+
+Help Chef rearrange his array according to these rules.
+
+
+
+Function Declaration
+
+Function Name
+
+r
+
+e
+
+a
+
+r
+
+r
+
+a
 
 n
 
-u
+g
 
-m
+e
 
-s
+A
 
-nums. Rotate the array to the right by 
+r
 
-k
+r
 
-k positions, where 
+a
 
-k
+y
 
-k is a non-negative integer.
+rearrangeArray – This function rearranges an array of integers.
 
-For example:
 
-Given the array \[10, 20, 30, 40, 50], rotating it two times to the right results in:
 
-First rotation - \[50, 10, 20, 30, 40]
+Parameters
 
-Second rotation - \[40, 50, 10, 20, 30]
+a
 
-You need to implement a solution that operates in-place and uses only 
+r
 
-O
+r
 
-(
+arr : A reference to a vector of integers of size 
+
+n
+
+n.
+
+
+
+Contains both positive and negative integers.
+
+Has an equal number of positive and negative values.
+
+n
+
+n : An integer representing the size of the array
+
+
+
+Always even
+
+Satisfies all constraints
+
+Return Value
+
+The function does not return anything.
+
+
+
+It modifies the vector in-place, producing a rearranged array that:
+
+
+
+Starts with a positive integer
+
+Alternates sign at every position
+
+Preserves the internal order of all positive and all negative elements
+
+Constraints
+
+2
+
+≤
+
+N
+
+≤
+
+2
+
+⋅
+
+10
+
+5
+
+2≤N≤2⋅10 
+
+5
+
+&nbsp;
+
+N
+
+N is even
 
 1
 
-)
+≤
 
-O(1) additional space.
+∣
 
-You don’t need to print any values; simply edit the values of the array.
+A
 
+\[
 
+i
 
-Follow up:
+]
 
-Can you think of multiple approaches to solve this problem? (There are at least three different strategies.)
+∣
+
+≤
+
+10
+
+5
+
+1≤∣A\[i]∣≤10 
+
+5
+
+&nbsp;
+
+The array contains exactly 
+
+N
+
+/
+
+2
+
+N/2 positive and 
+
+N
+
+/
+
+2
+
+N/2 negative integers
 
 Input Format
 
-The first line contains a single integer T, the number of test cases.
+The first line contains a single integer 
+
+T
+
+T — the number of test cases.
 
 
 
-Each test case consists of two lines:
+For each test case:
 
 
 
-The first line contains two space-separated integers: N — size of the array K — number of right rotations
+The first line contains an integer 
 
-The second line contains N space-separated integers — the array elements.
+N
+
+N — the size of the array.
+
+The next line contains 
+
+N
+
+N space-separated integers representing the array elements.
 
 Output Format
 
-For each test case, output the rotated array in a new line (space-separated).
+For each test case, print the rearranged array (starting with positive and alternating signs) on a new line.
 

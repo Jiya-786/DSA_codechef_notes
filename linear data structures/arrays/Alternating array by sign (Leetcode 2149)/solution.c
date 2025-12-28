@@ -1,226 +1,133 @@
-// //  10 20 30 40 50
-// //   0  1  2  3  4
-// //  40 50 10 20 30
-// // n=5; k=2
-
-/*  BRUTE FORCE METHOD-   TIME O(k*n) AND SPACE O(1)
-    Brute force = do exactly what the problem says, even if it’s             slow.
-
-    The problem says:
-    Rotate the array to the right by k times
-    So brute force literally means:
-    👉 Rotate right by 1, and repeat this k times 
-    
-    
-    Steps in code:
-       Save last element
-       Shift everything one step right
-       Put saved element at index 0            */
+// THIS SOLN IS TIME O(n) AND SPACE O(n)
 
 #include <stdio.h>
 
-void rotate(int nums[], int n, int k) {
-    k = k % n;   // safety
-    for (int j=0;j<k;j++){
-        int last = nums[n - 1];
-        
-        for (int i = n - 1; i > 0; i--) {
-            nums[i] = nums[i - 1];
-        }
-        
-        nums[0] = last;
-    }
+void rearrangeArray(int arr[], int n) {
+    int* positive=(int*)malloc((n/2)*sizeof(int));
+    int* negative=(int*)malloc((n/2)*sizeof(int));
+    int count1=0;
+    int count2=0;
+   for(int i=0;i<n;i++){
+       if(arr[i]>0){
+           positive[count1]=arr[i];
+           count1++;
+       }
+       else{
+           negative[count2]=arr[i];
+           count2++;
+       }
+   }
+   
+/* int pointer=0;
+   for(int i=0;i<n;i+=2){
+      arr[i]=positive[pointer];
+      arr[i+1]=negative[pointer];
+      pointer++;
+    }      
+    
+    cleaner way would be the following for loop-   */
+   
+   for(int i=0;i<n/2;i++){
+       printf("%d %d ",positive[i],negative[i]);
+   }
+   printf("\n");
+   
+   free(positive);
+   free(negative);
 }
 
-int main() {
-    int n, k;
-    scanf("%d %d", &n, &k);
 
-    int nums[n];
+/* WE CAN ALSO WRITE ANOTHER SOLN WITH TIME O(n^2) AND SPACE O(1)
+   Core O(1) idea- 
+     When a number is in the wrong position:
+     Look ahead to find a number with the correct sign
+     Bring it here
+     While doing so, do not change order → so we shift, not swap */
+     
+/* eg:
+   arr = [-1, -2, 3, 4]
+   Step 1 — Start at index 0 (even → needs positive)
+            i = 0
+            arr[i] = -1 (wrong, need positive)
+   Look ahead for next positive → found 3 at index j = 2
+   Save it:
+        temp = 3
+   Shift elements between i and j-1 to the right:
+
+        k = 2 → arr[2] = arr[1] → arr = [-1, -2, -2, 4]
+        k = 1 → arr[1] = arr[0] → arr = [-1, -1, -2, 4]
+
+    Insert temp at i:
+            arr[0] = 3
+            Array now: [3, -1, -2, 4]
+            
+    ✅ Step 1 done
+
+    Step 2 — Index 1 (odd → needs negative)
+             i = 1
+             arr[1] = -1 (correct)
+    No action needed. Move on.
+
+    Step 3 — Index 2 (even → needs positive)
+             i = 2
+             arr[2] = -2 (wrong)
+
+    Look ahead → next positive = 4 at index j = 3
+                 Save temp:
+                 temp = 4
+
+    Shift elements between i and j-1:
+            k = 3 → arr[3] = arr[2] → arr = [3, -1, -2, -2]
+
+    Insert temp at i:
+            arr[2] = 4
+            Array now: [3, -1, 4, -2]
+
+        ✅ Step 3 done
+
+    Step 4 — Index 3 (odd → needs negative)
+             i = 3
+             arr[3] = -2 (correct)
+
+    No action needed.
+
+    Final Result: [3, -1, 4, -2]     */
+
+
+#include <stdio.h>
+
+void rearrangeArray(int arr[], int n) {
     for (int i = 0; i < n; i++) {
-        scanf("%d", &nums[i]);
+        /* Even index  → need positive
+           Odd index   → need negative
+        */
+        if ((i % 2 == 0 && arr[i] < 0) ||
+            (i % 2 == 1 && arr[i] > 0)) {
+                int j = i + 1;
+            // find next element with correct sign
+            while (j < n) {
+                if ((i % 2 == 0 && arr[j] > 0) ||
+                    (i % 2 == 1 && arr[j] < 0)) {
+                         break;
+                }
+                j++;
+            }
+
+            // store the correct element
+            int temp = arr[j];
+
+            // shift elements right to preserve order
+            for (int k = j; k > i; k--) {
+                arr[k] = arr[k - 1];
+            }
+
+            // place element at correct position
+            arr[i] = temp;
+        }
     }
-    rotate(nums, n, k);
     for (int i = 0; i < n; i++) {
-        printf("%d ", nums[i]);
-    }
-
-    return 0;
-}
-
-
-/*   LEVEL 1 OPTIMIZATION TIME O(n) AND SPACE O(k)   */
-
-#include <stdio.h>
-
-void rotate(int nums[], int n, int k) {
-    int temp[k];
-    for(int i=(n-1)-(k-1);i<n;i++){
-        temp[i]=nums[i];            // temp array indexing                             is wrong it will go                             out of bounds
-    }
-    for(int i=0;i<=k;i++){
-         nums[i+2]=nums[i];        // shifting direction is                          wrong, it will                                 overwrite some values
-                                 //   and 2 is hardcoded            here, it should be k          not 2
-    }
-    for(int i=0;i<k;i++){
-        nums[i]=temp[i];
-    }
-   
-    for(int i=0;i<n;i++){
-        printf("%d ",nums[i]);
+        printf("%d ", arr[i]);
     }
     printf("\n");
-    
 }
 
-int main(){
-    int t;
-    scanf("%d",&t);
-    while(t--){
-        int n,k;
-        scanf("%d%d",&n,&k);
-        int nums[n];
-        for(int i=0;i<n;i++){
-            scanf("%d",&nums[i]);
-        }
-        rotate(nums,n,k);
-    }
-    
-    
-    return 0;
-}
-
-/*  CORRECTED SOLN WITH TIME O(n) AND SPACE O(k)  */
-
-#include <stdio.h>
-
-void rotate(int nums[], int n, int k) {
-    k=k%n;
-    int temp[k];
-    for(int i=(n-1)-(k-1);i<n;i++){
-        temp[i-(n-k)]=nums[i];            
-    }                               //corrected indexing for                               temp
-    for(int i=n-1;i>=k;i--){
-         nums[i]=nums[i-k];     //in right shift move from                       right to left to avoid                         data corruption
-    }                          
-    for(int i=0;i<k;i++){
-        nums[i]=temp[i];
-    }
-   
-    for(int i=0;i<n;i++){
-        printf("%d ",nums[i]);
-    }
-    printf("\n");
-    
-}
-
-int main(){
-    int t;
-    scanf("%d",&t);
-    while(t--){
-        int n,k;
-        scanf("%d%d",&n,&k);
-        int nums[n];
-        for(int i=0;i<n;i++){
-            scanf("%d",&nums[i]);
-        }
-        rotate(nums,n,k);
-    }
-    
-    
-    return 0;
-}                         
-
-
-/*   SOLVING WITHOUT VLA- USING MALLOC WITH SAME TIME AND SPACE, NO  OPTI YET */
-
-#include <stdio.h>
-
-void rotate(int nums[], int n, int k) {
-    k=k%n;
-    int* temp=(int*)malloc(k*sizeof(int));
-    for(int i=(n-1)-(k-1);i<n;i++){
-        temp[i-(n-k)]=nums[i];            
-    }                               //corrected indexing for                                     temp
-    for(int i=n-1;i>=k;i--){
-         nums[i]=nums[i-k];     //in right shift move from                              right to left to avoid                                data corruption
-    }                          
-    for(int i=0;i<k;i++){
-        nums[i]=temp[i];
-    }
-   
-    for(int i=0;i<n;i++){
-        printf("%d ",nums[i]);
-    }
-    printf("\n");
-    
-    free(temp);
-}
-
-int main(){
-    int t;
-    scanf("%d",&t);
-    while(t--){
-        int n,k;
-        scanf("%d%d",&n,&k);
-        int nums[n];
-        for(int i=0;i<n;i++){
-            scanf("%d",&nums[i]);
-        }
-        rotate(nums,n,k);
-    }
-    
-    
-    return 0;
-}                
-
-   /*   BUT WE WANT SOLN WITH TIME O(n) AND SPACE O(1)   
-        ie no extra space should be taken up by temp array  
-        we need to remove use of that extra temp array.
-        So, we will reverse the entire array then reverse the first
-        (k) elts and then the remaining (n-k) elts */
-
-// //  10 20 30 40 50
-// //   0  1  2  3  4
-// //  40 50 10 20 30
-// // n=5; k=2
-
-#include <stdio.h>
-
-void reverse(int nums[], int start, int end) {
-    while(start<end){
-        int temp=nums[start];
-        nums[start]=nums[end];
-        nums[end]=temp;
-        start++;
-        end--;
-    }
-}
-
-int main(){
-    int t;
-    scanf("%d",&t);
-    while(t--){
-        int n,k;
-        scanf("%d%d",&n,&k);
-        int nums[n];
-        for(int i=0;i<n;i++){
-            scanf("%d",&nums[i]);
-        }
-        k=k%n;
-        reverse(nums,0,n-1);
-        reverse(nums,0,k-1);
-        reverse(nums,k,n-1);
-        
-        for(int i=0;i<n;i++){
-            printf("%d ",nums[i]);
-        }
-        printf("\n");
-    }
-    
-    
-    return 0;
-}        
-
-      /* THERE IS ALSO ANOTHER O(1) SPACE METHOD- THE CYCLIC METHOD
-         BUT I DIDN"T QUITE UNDERSTAND HOW TO IMPLEMENT THAT   */

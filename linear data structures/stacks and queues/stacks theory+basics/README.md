@@ -17,6 +17,7 @@ If the stack is not empty, you proceed to remove the element that "top" is curre
 After removing the element, you update the "top" pointer to point to the new top element of the stack, which is the previous element before the one you just popped.
 The popped element is returned or kept for further processing, depending on the implementation and usage.
 [main.py](https://github.com/user-attachments/files/25844506/main.py)
+```python
 MAX_SIZE = 101
 a=[0]*MAX_SIZE   # this is how we initialize an array in python
 top = -1
@@ -39,7 +40,7 @@ def pop():
         return ele
     else:
         print("Stack is empty. Cannot pop.")
-        return -1
+        return -1```
 
 
 

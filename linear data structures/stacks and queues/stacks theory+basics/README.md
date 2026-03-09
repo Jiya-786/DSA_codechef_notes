@@ -59,6 +59,25 @@ If there is at least one element in the data structure, isEmpty returns false.
 ## isFull-
 isFull - This function is typically relevant for a fixed size stack. It allows you to determine if the data structure has reached its maximum capacity.
 
+[main (2).py](https://github.com/user-attachments/files/25844582/main.2.py)
+```python
+def peek():
+    global top
+    if top >= 0:
+        ele = a[top]
+        print(f"Peeked: {ele}")
+        return ele
+    else:
+        print("Stack is empty. Cannot peek.")
+        return -1
+
+def is_empty():
+    return top == -1
+
+def is_full():
+    return top >= MAX_SIZE
+```
+
 
 # Use cases of Stack:
 Stacks are used whenever you need to manage a collection of items that follows the Last-In-First-Out (LIFO) order of processing.

@@ -40,9 +40,8 @@ def pop():
         return ele
     else:
         print("Stack is empty. Cannot pop.")
-        return -1```
-
-
+        return -1
+```
 
 # Peek, isEmpty, isFull
 The peek, isEmpty, and isFull are some other functions used in stacks.

@@ -16,6 +16,32 @@ First, you check if the stack is empty. If it's empty, there is nothing to pop, 
 If the stack is not empty, you proceed to remove the element that "top" is currently pointing to.
 After removing the element, you update the "top" pointer to point to the new top element of the stack, which is the previous element before the one you just popped.
 The popped element is returned or kept for further processing, depending on the implementation and usage.
+[main.py](https://github.com/user-attachments/files/25844506/main.py)
+```python
+MAX_SIZE = 101
+a=[0]*MAX_SIZE   # this is how we initialize an array in python
+top = -1
+
+def push(ele):
+    global top
+    if top <= MAX_SIZE-1:
+        top += 1
+        a[top]=ele
+        print(f"Pushed: {ele}")
+    else:
+        print(f"Stack is full. Cannot push: {ele} ")
+
+def pop():
+    global top
+    if top >= 0:
+        ele = a[top]
+        top -= 1
+        print(f"Popped: {ele}")
+        return ele
+    else:
+        print("Stack is empty. Cannot pop.")
+        return -1
+```
 
 # Peek, isEmpty, isFull
 The peek, isEmpty, and isFull are some other functions used in stacks.
@@ -32,6 +58,25 @@ If there is at least one element in the data structure, isEmpty returns false.
 
 ## isFull-
 isFull - This function is typically relevant for a fixed size stack. It allows you to determine if the data structure has reached its maximum capacity.
+
+[main (2).py](https://github.com/user-attachments/files/25844582/main.2.py)
+```python
+def peek():
+    global top
+    if top >= 0:
+        ele = a[top]
+        print(f"Peeked: {ele}")
+        return ele
+    else:
+        print("Stack is empty. Cannot peek.")
+        return -1
+
+def is_empty():
+    return top == -1
+
+def is_full():
+    return top >= MAX_SIZE
+```
 
 
 # Use cases of Stack:

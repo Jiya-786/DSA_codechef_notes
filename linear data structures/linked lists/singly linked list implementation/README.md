@@ -1,4 +1,5 @@
-```// first for singly linked list
+```cpp
+// first for singly linked list
 #include <iostream>
 using namespace std;
 
@@ -141,3 +142,4 @@ int main(){
     }
 }
 ```
+

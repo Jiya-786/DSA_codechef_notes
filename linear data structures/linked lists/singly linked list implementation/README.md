@@ -1,3 +1,4 @@
+# provide an implementation of a singly linked list in C++, including functions for insertion at beginning and end, deletion, searching, and displaying the list.
 ```cpp
 // first for singly linked list
 #include <iostream>
@@ -142,4 +143,5 @@ int main(){
     }
 }
 ```
+
 

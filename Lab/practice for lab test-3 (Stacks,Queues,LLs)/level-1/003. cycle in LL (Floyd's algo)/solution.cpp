@@ -35,7 +35,9 @@ int main(){
     // so we have to give input on our own because this is not leetcode so i gave
     // the input such the the last node of the linked list connects back to the node 
     //before it so we get a cycle for every input no matter what
-
+    
+    // but in std circular array last elt is connected back to first elt,
+    // here i did not connect like that
     int n;
     cin>>n;
 
